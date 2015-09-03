@@ -62,12 +62,12 @@ void guiTop(int player, int p1score, int p2score)
 	//drawFillRect(0, 0, 399, 17, 0, 128, 255, screenTopLeft);
 
  //   //Prints the statusBar
-	//gfxDrawText(GFX_TOP, GFX_LEFT, NULL, "3DS Tic Tac Toe", 5, 238 - fontDefault.height * 1);
+	//gfxDrawText(GFX_TOP, GFX_LEFT, &fontBlack, "3DS Tic Tac Toe", 5, 238 - &fontBlack.height * 1);
 	//guiClock();
 
 	////Prints the score
 	//sprintf(buffer, "%d   :   %d", p1score, p2score);
-	//gfxDrawText(GFX_TOP, GFX_LEFT, NULL, buffer, 183, 240 - fontDefault.height * 14);
+	//gfxDrawText(GFX_TOP, GFX_LEFT, &fontBlack, buffer, 183, 240 - &fontBlack.height * 14);
 }
 
 void drawOptionsUi(bool greyScale)
@@ -120,7 +120,7 @@ void drawStatusBar(char* title)
     guiClock();
 
 	//Title
-    gfxDrawText(GFX_TOP, GFX_LEFT, NULL, title, 80, 238 - fontDefault.height * 1, true);
+    gfxDrawText(GFX_TOP, GFX_LEFT, &fontBlack, title, 80, 238 - fontBlack.height * 1);
 }
 
 
@@ -141,7 +141,7 @@ void drawTextView(char* path, int page, bool greyScale)
 
 	//Draw page
 	sprintf(buffer, "PG: %i", page + 1);
-	gfxDrawText(GFX_TOP, GFX_LEFT, NULL, buffer, 5, 238 - fontDefault.height * 15, true);	
+	gfxDrawText(GFX_TOP, GFX_LEFT, &fontBlack, buffer, 5, 238 - fontBlack.height * 15);	
 
 	//Read the page
 	int c;
@@ -164,9 +164,9 @@ void drawTextView(char* path, int page, bool greyScale)
 		for (i = 0; i < 29; i++)
 		{
 			//Loads the line
-			int j=0;
+			int j = 0;
 			char line[55];
-	
+
 			for (j = 0; j < 55; j++)
 			{
 				if ((c = getc(file)) != EOF && c != '\n') line[j] = c;
@@ -181,11 +181,10 @@ void drawTextView(char* path, int page, bool greyScale)
 			//Prints text
 			gfxDrawText(
 				i < 14 ? GFX_TOP : GFX_BOTTOM, GFX_LEFT,                 //Screen on which to print the text
-				NULL,
+				greyScale ? &fontBlack : &fontBrown,
 				line,                                                    //Line of text to print
 				i < 14 ? 44 : 5,                                         //Horizzontal position of the text
-				238 - fontDefault.height * (i < 14 ? i+2 : i+1 - 14),    //Vertical position of the text
-				greyScale
+				238 - fontBlack.height * (i < 14 ? i + 2 : i + 1 - 14)       //Vertical position of the text
 				);
 		}
         //Save the current offset in file, for every page
@@ -211,7 +210,7 @@ void guiClock()
 	u64 dayTime = timeInSeconds % SECONDS_IN_DAY;
 	sprintf(buffer, "%02llu:%02llu", dayTime / SECONDS_IN_HOUR, (dayTime % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
 
-	gfxDrawText(GFX_TOP, GFX_LEFT, NULL, buffer, 365, 238 - fontDefault.height * 1, true);
+	gfxDrawText(GFX_TOP, GFX_LEFT, &fontBlack, buffer, 365, 238 - fontBlack.height * 1);
 }
 
 void guiPopup(char* title, char* line1, char* line2, char* line3, char* button1, char* button2, bool closeonly)
@@ -221,21 +220,21 @@ void guiPopup(char* title, char* line1, char* line2, char* line3, char* button1,
 	////Prints a light grey rectangle!
 	//drawFillRect(36, 85, 272, 189, 160, 160, 160, screenBottom);
 	////Prints text
-	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, title, 124, 240 - fontDefault.height * 5);
-	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, line1, 50, 245 - fontDefault.height * 7);
-	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, line2, 50, 245 - fontDefault.height * 8);
-	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, line3, 50, 245 - fontDefault.height * 9);
+	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, title, 124, 240 - &fontBlack.height * 5);
+	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, line1, 50, 245 - &fontBlack.height * 7);
+	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, line2, 50, 245 - &fontBlack.height * 8);
+	//gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, line3, 50, 245 - &fontBlack.height * 9);
  //   //Prints the buttons!
 	//if (closeonly)
 	//{
  //       drawFillRect(107, 155, 198, 183, 192, 192, 192, screenBottom);
-	//	gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, button1, 130, 240 - fontDefault.height * 11);
+	//	gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, button1, 130, 240 - &fontBlack.height * 11);
 	//}
 	//else
 	//{
 	//	drawFillRect(50, 151, 141, 179, 192, 192, 192, screenBottom);
 	//    drawFillRect(166, 151, 257, 179, 192, 192, 192, screenBottom);
-	//	gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, button1, 60, 240 - fontDefault.height * 11);
-	//	gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, button2, 180, 240 - fontDefault.height * 11);
+	//	gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, button1, 60, 240 - &fontBlack.height * 11);
+	//	gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, button2, 180, 240 - &fontBlack.height * 11);
 	//}	
 }

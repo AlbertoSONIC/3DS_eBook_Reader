@@ -166,7 +166,7 @@ void drawCircleCircum(int cx, int cy, int x, int y, char r, char g, char b, u8* 
 	}
 }
 
-int drawCharacter(u8* fb, font_s* f, char c, s16 x, s16 y, u16 w, u16 h, bool greyScale)
+int drawCharacter(u8* fb, font_s* f, char c, s16 x, s16 y, u16 w, u16 h)
 {
 	charDesc_s* cd = &f->desc[(int)c];
 	if (!cd->data)return 0;
@@ -178,10 +178,7 @@ int drawCharacter(u8* fb, font_s* f, char c, s16 x, s16 y, u16 w, u16 h, bool gr
 	if (y<0){ cy = 0; cyo = -y; ch = cd->h - cyo; }
 	else if (y + ch>h)ch = h - y;
 	fb += (x*h + cy) * 3;
-	const u8 r = greyScale ? 0x00 : 0x5E,
-		g = greyScale ? 0x00 : 0x3F,
-		b = greyScale ? 0x00 : 0x36;
-
+	const u8 r = f->color[0], g = f->color[1], b = f->color[2];
 	for (i = 0; i<cd->w; i++)
 	{
 		charData += cyo;
@@ -202,27 +199,27 @@ int drawCharacter(u8* fb, font_s* f, char c, s16 x, s16 y, u16 w, u16 h, bool gr
 	return cd->xa;
 }
 
-void drawString(u8* fb, font_s* f, char* str, s16 x, s16 y, u16 w, u16 h, bool greyScale)
+void drawString(u8* fb, font_s* f, char* str, s16 x, s16 y, u16 w, u16 h)
 {
 	if (!f || !fb || !str)return;
 	int k; int dx = 0, dy = 0;
 	int length = strlen(str);
 	for (k = 0; k<length; k++)
 	{
-		dx += drawCharacter(fb, f, str[k], x + dx, y + dy, w, h, greyScale);
+		dx += drawCharacter(fb, f, str[k], x + dx, y + dy, w, h);
 		if (str[k] == '\n'){ dx = 0; dy -= f->height; }
 	}
 }
 
-void gfxDrawText(gfxScreen_t screen, gfx3dSide_t side, font_s* f, char* str, s16 x, s16 y, bool greyScale)
+void gfxDrawText(gfxScreen_t screen, gfx3dSide_t side, font_s* f, char* str, s16 x, s16 y)
 {
 	if (!str)return;
-	if (!f)f = &fontDefault;
+	if (!f)f = &fontBlack;
 
 	u16 fbWidth, fbHeight;
 	u8* fbAdr = gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
 
-	drawString(fbAdr, f, str, x, y, fbHeight, fbWidth, greyScale);
+	drawString(fbAdr, f, str, x, y, fbHeight, fbWidth);
 }
 
 void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 y, s16 x)

@@ -32,7 +32,7 @@ int file_list(const char *path, char ***ls) {
 
 	dp = opendir(path);
 	if (NULL == dp) {
-		gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, "AEEE", 5, 238 - fontDefault.height , true);
+		gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, "AEEE", 5, 238 - fontBlack.height);
 		return 0;
 	}
 
@@ -82,8 +82,8 @@ void FileExplorerShow(){
 				strcat(filename, "...");
 			}
 			sprintf(buffer, "%s%s", i == pointer ? "> " : "", filename);
-			if (pointer == i) drawFillRect(35, fontDefault.height * (i - beginning + 1), 275, fontDefault.height * (i - beginning + 1) + 15, 226, 226, 226, screenBottom);
-			gfxDrawText(GFX_BOTTOM, GFX_LEFT, NULL, filename, 40, 238 - fontDefault.height * (i - beginning + 1) - 15, true);
+			if (pointer == i) drawFillRect(35, fontBlack.height * (i - beginning + 1), 275, fontBlack.height * (i - beginning + 1) + 15, 226, 226, 226, screenBottom);
+			gfxDrawText(GFX_BOTTOM, GFX_LEFT, &fontBlack, filename, 40, 238 - fontBlack.height * (i - beginning + 1) - 15);
 		}
 
 		//Draw the next/prev page button if there's one
@@ -145,10 +145,10 @@ void FileExplorerMain() {
 		else if (input & KEY_DOWN) FileExplorerNextSelection(); 
 		else if (input & KEY_A) FileExplorerSelect(); 
 		//Touch item selection
-		if ((posX > 32 && posX < 266) && (posY > 10 && posY < 240 - 24 - 40 - (10 - itemShown)*fontDefault.height)) 
+		if ((posX > 32 && posX < 266) && (posY > 10 && posY < 240 - 24 - 40 - (10 - itemShown)*fontBlack.height)) 
 		{
 			//If tap on file manager item
-			int selectedItem = (posY - 19) / fontDefault.height + beginning;
+			int selectedItem = (posY - 19) / fontBlack.height + beginning;
 			if (pointer == selectedItem)FileExplorerSelect();
 			else pointer = selectedItem;
 		}
