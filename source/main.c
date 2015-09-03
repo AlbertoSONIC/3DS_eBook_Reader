@@ -4,7 +4,8 @@
 #include <string.h>
 #include <malloc.h>
 #include "main.h"
-#include "app.h"
+#include "FileExplorer.h"
+#include "TextView.h"
 #include "draw.h"
 #include "gui.h"
 #include "input.h"
@@ -12,7 +13,7 @@
 
 //FPS Counter
 bool GW_MODE;
-
+int mode = 0;
 
 int main()
 {
@@ -28,7 +29,49 @@ int main()
 	getFB();
 
 	//The app code:
-	MenuView();
+	while (aptMainLoop())
+	{
+
+		//As nop90 suggested
+		getFB();
+
+		//Gets input (keys and touch)
+		getInput();
+
+		switch (mode)
+		{
+		case 0:
+			//Main screen
+			FileExplorer_Main();
+			GUI_MenuView();
+			GUI_StatusBar("");
+			GUI_FileExplorer();
+			break;
+
+		case 1:
+			//Text screen
+			TextView_Main();
+			GUI_TextView(path, page, greyScale);
+			GUI_StatusBar(title);
+			if (!hideUI)GUI_QuickUi();
+			if (!hideOptions)GUI_OptionsUi(greyScale);
+			break;
+
+		case 2:
+			//Exit 
+			goto close;
+			break;
+		}
+
+		// Flush and swap framebuffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+
+		//Wait for VBlank
+		gspWaitForVBlank();
+	}
+
+	close:
 
 	// Exit services
 	gfxExit();
