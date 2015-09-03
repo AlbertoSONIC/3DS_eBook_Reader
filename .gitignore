@@ -17,6 +17,14 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Build output
+*.3dsx
+*.smdh
+*.elf
+*.cia
+*.3ds
+build
+
 # =========================
 # Operating System Files
 # =========================

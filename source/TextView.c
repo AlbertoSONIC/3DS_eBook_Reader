@@ -20,10 +20,8 @@ void TextView_Main() //This is the text screen
 	//Draw mode specific ui and related input is handled
 	if (hideUI && hideOptions) //Text view shown
 	{
-		if (input & KEY_RIGHT && nextAvailable) { page++; }
-		else if (input & KEY_LEFT && page != 0) { page--; }
-		else if (input & KEY_UP && greyScale) { greyScale = false; }
-		else if (input & KEY_DOWN && !greyScale) { greyScale = true; }
+		if ((input & (KEY_RIGHT | KEY_R)) && nextAvailable) { page++; }
+		else if ((input & (KEY_LEFT | KEY_L)) && page != 0) { page--; }
 		else if ((posX > 0 && posX < 320) && (posY > 0 && posY < 240)) { hideUI = false; quickui_animation = 0; }
 	}
 	else
