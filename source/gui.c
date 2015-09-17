@@ -85,7 +85,7 @@ void GUI_FileExplorer(){
 
 		//Draw the next/prev page button if there's one
 		if (beginning != 0) gfxDrawSprite(GFX_BOTTOM, GFX_LEFT, (u8*)PrevFM_bin, 71, 23, 9, 109);       // <--
-		if (count > beginning + 11) gfxDrawSprite(GFX_BOTTOM, GFX_LEFT, (u8*)NextFM_bin, 72, 22, 289, 109); // -->	
+		if (count > beginning + 10) gfxDrawSprite(GFX_BOTTOM, GFX_LEFT, (u8*)NextFM_bin, 72, 22, 289, 109); // -->	
 	}
 }
 

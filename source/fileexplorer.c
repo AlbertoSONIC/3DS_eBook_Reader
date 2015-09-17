@@ -104,8 +104,8 @@ void FileExplorer_Main() {
 		if (pointer == selectedItem)FileExplorer_Select();
 		else pointer = selectedItem;
 	}
-	if ((posX > 11 && posX < 30) && (posY > 62 && posY < 129)) pointer = beginning - 1;//Prev FM page
-	if ((posX > 289 && posX < 312) && (posY > 62 && posY < 129)) pointer = beginning + 10;//Next FM page
+	if (((posX > 11 && posX < 30) && (posY > 62 && posY < 129)) && beginning != 0) pointer = beginning - 1;//Prev FM page
+	if (((posX > 289 && posX < 312) && (posY > 62 && posY < 129)) && count > beginning + 10) pointer = beginning + 10;//Next FM page
 
 	if (pointer - beginning == 10)beginning += 10;
 	if (pointer < beginning)beginning -= 10;
