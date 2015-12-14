@@ -72,7 +72,7 @@ void FileExplorer_Select(){
 		title[40] = '\0'; strcat(title, "...");
 	}
 	strcpy(path, strcat(dir, files[pointer]));
-	mode = 1; //Switch to textview
+	mode = BOOK_INTRO; //Switch to textview
 
 	//Prepare eBook
 	page = 0;

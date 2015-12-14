@@ -8,6 +8,7 @@ void GUI_QuickUi();
 void GUI_MenuView();
 void GUI_TextView(char* path, int page, bool greyScale);
 void GUI_Clock();
+int GUI_BookIntro();
 
 extern bool nextAvailable;
 extern int quickui_animation;

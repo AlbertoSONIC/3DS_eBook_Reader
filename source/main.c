@@ -13,7 +13,7 @@
 
 //FPS Counter
 bool GW_MODE;
-int mode = 0;
+appMode_t mode = MENU;
 
 int main()
 {
@@ -40,7 +40,7 @@ int main()
 
 		switch (mode)
 		{
-		case 0:
+		case MENU:
 			//Main screen
 			FileExplorer_Main();
 			GUI_MenuView();
@@ -48,7 +48,11 @@ int main()
 			GUI_FileExplorer();
 			break;
 
-		case 1:
+		case BOOK_INTRO:
+		    if(!GUI_BookIntro()) mode = TEXT;
+		    break;
+
+		case TEXT:
 			//Text screen
 			TextView_Main();
 			GUI_TextView(path, page, greyScale);
@@ -57,7 +61,7 @@ int main()
 			if (!hideOptions)GUI_OptionsUi(greyScale);
 			break;
 
-		case 2:
+		case EXIT:
 			//Exit 
 			goto close;
 			break;

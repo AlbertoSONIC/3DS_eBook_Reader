@@ -37,8 +37,9 @@ char buffer[100];
 bool nextAvailable = true;
 int offsets[1000];
 int charging_animation = 1;
-int quickui_animation = 0;
+int quickui_animation = 24;
 int bookmark_animation = 0;
+int bookintro_animation = 220;
 
 u8* batteryLevels[] = {
 	(u8*)BatteryLowest_bin,
@@ -230,4 +231,13 @@ void GUI_Clock()
 	sprintf(buffer, "%02llu:%02llu", dayTime / SECONDS_IN_HOUR, (dayTime % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
 
 	gfxDrawText(GFX_TOP, GFX_LEFT, &fontBlack, buffer, 365, 238 - fontBlack.height * 1);
+}
+
+int GUI_BookIntro()
+{
+	drawFillRect(40, 20 + bookintro_animation, 359, 239 , 255, 255, 255, screenTopLeft);
+	drawFillRect(0, 0, 319, 220 - bookintro_animation, 255, 255, 255, screenBottom);
+	if(!bookintro_animation) { bookintro_animation = 220; return 0; }
+	else bookintro_animation-=20;
+	return 1;
 }

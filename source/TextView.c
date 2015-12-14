@@ -12,7 +12,7 @@
 
 int page;
 bool greyScale = true;
-bool hideUI = true;
+bool hideUI = false;
 bool hideOptions = true;
 
 void TextView_Main() //This is the text screen
