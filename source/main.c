@@ -21,8 +21,8 @@ int main()
 	srvInit();
 	aptInit();
 	acInit();
-	ptmInit();
-	hidInit(NULL);
+	ptmuInit();
+	hidInit();
 	gfxInitDefault();
 
 	//As nop90 suggested
@@ -79,7 +79,7 @@ int main()
 
 	// Exit services
 	gfxExit();
-	ptmExit();
+	ptmuExit();
 	acExit();
 	hidExit();
 	aptExit();

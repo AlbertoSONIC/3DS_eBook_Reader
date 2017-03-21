@@ -1,3 +1,4 @@
+#include <string.h>
 #include "draw.h"
 #include "memory.h"
 #include "ascii64.h"

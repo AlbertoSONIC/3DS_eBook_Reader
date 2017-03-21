@@ -1,18 +1,13 @@
 BasicInfo:
-  Title                   : "CtrApp"
+  Title                   : "3DS-EBR"
   CompanyCode             : "00"
-  ProductCode             : "CTR-P-CTAP"
-  ContentType             : Application # Application / SystemUpdate / Manual / Child / Trial
+  ProductCode             : "CTR-P-EBOO"
+  ContentType             : Application
   Logo                    : Nintendo # Nintendo / Licensed / Distributed / iQue / iQueForSystem
 
-Rom:
-  # Specifies the root path of the file system to include in the ROM.
-  #HostRoot                : "romfs"
-
-
 TitleInfo:
-  UniqueId                : 0x1359 # This was/is the first real homebrew app. I hope this TID range is not used by any retail game/app.
-  Category                : Application # Application / SystemApplication / Applet / Firmware / Base / DlpChild / Demo / Contents / SystemContents / SharedContents / AddOnContents / Patch / AutoUpdateContents
+  UniqueId                : 0xf0027
+  Category                : Application
   
 CardInfo:
   MediaSize               : 128MB # 128MB / 256MB / 512MB / 1GB / 2GB / 4GB
@@ -21,25 +16,11 @@ CardInfo:
   
 
 Option:
+  UseOnSD                : true # true if App is to be installed to SD
   FreeProductCode         : true # Removes limitations on ProductCode
   MediaFootPadding        : false # If true CCI files are created with padding
-  EnableCrypt             : true # Enables encryption for NCCH and CIA
+  EnableCrypt             : false # Enables encryption for NCCH and CIA
   EnableCompress          : true # Compresses exefs code
-
-ExeFs: # these are the program segments from the ELF, check your elf for the appropriate segment names
-  ReadOnly: 
-   - .rodata
-   - RO
-  ReadWrite: 
-   - .data
-   - RO
-  Text: 
-   - .init
-   - .text
-   - STUP_ENTRY
-   
-PlainRegion: # only used with SDK ELFs 
- - .module_id
   
 AccessControlInfo:
   #UseExtSaveData : true
@@ -66,7 +47,15 @@ AccessControlInfo:
   Priority                      : 16
    
   MaxCpu                        : 0x9E # Default
-  
+  DisableDebug                  : false
+  EnableForceDebug              : false
+  CanWriteSharedPage            : false
+  CanUsePrivilegedPriority      : false
+  CanUseNonAlphabetAndNumber    : false
+  PermitMainFunctionArgument    : false
+  CanShareDeviceMemory          : false
+  RunnableOnSleep               : false
+  SpecialMemoryArrange          : false
   CoreVersion                   : 2
   DescVersion                   : 2
   
@@ -74,6 +63,12 @@ AccessControlInfo:
   ReleaseKernelMinor            : "33" 
   MemoryType                    : Application
   HandleTableSize: 512
+  
+  SystemModeExt                 : Legacy # Legacy(Default)/124MB/178MB  Legacy:Use Old3DS SystemMode
+  CpuSpeed                      : 804MHz # 268MHz(Default)/804MHz
+  EnableL2Cache                 : true # false(default)/true
+  CanAccessCore2                : true 
+  
   IORegisterMapping: 
    - 1ff50000-1ff57fff
    - 1ff70000-1ff77fff
@@ -140,28 +135,31 @@ AccessControlInfo:
    - ac:u
    - boss:U
    - cam:u
-   - cecd:u
+   - ir:rst
    - cfg:u
    - dlp:FKCL
    - dlp:SRVR
    - dsp::DSP
-   - frd:u
+   - ssl:C
    - fs:USER
    - gsp::Gpu
    - hid:USER
    - http:C
    - mic:u
    - ndm:u
-   - news:u
+   - news:s
    - nwm::UDS
    - ptm:u
    - pxi:dev
    - soc:U
-   - ssl:C
+   - gsp::Lcd
    - y2r:u
    - ldr:ro
    - ir:USER
-  
+   - ir:u
+   - csnd:SND
+   - am:u
+   - ns:s
    
 SystemControlInfo:
   Dependency: 
@@ -195,40 +193,3 @@ SystemControlInfo:
     socket: 0x0004013000002e02L
     spi: 0x0004013000002302L
     ssl: 0x0004013000002f02L
-CommonHeaderKey: 
-  D: |
-    jL2yO86eUQnYbXIrzgFVMm7FVze0LglZ2f5g+c42hWoEdnb5BOotaMQPBfqt
-    aUyAEmzQPaoi/4l4V+hTJRXQfthVRqIEx27B84l8LA6Tl5Fy9PaQaQ+4yRfP
-    g6ylH2l0EikrIVjy2uMlFgl0QJCrG+QGKHftxhaGCifdAwFNmiZuyJ/TmktZ
-    0RCb66lYcr2h/p2G7SnpKUliS9h9KnpmG+UEgVYQUK+4SCfByUa9PxYGpT0E
-    nw1UcRz0gsBmdOqcgzwnAd9vVqgb42hVn6uQZyAl+j1RKiMWywZarazIR/k5
-    Lmr4+groimSEa+3ajyoIho9WaWTDmFU3mkhA2tUDIQ==
-  Exponent: |
-    AQAB
-  Modulus: |
-    zwCcsyCgMkdlieCgQMVXA6X2jmb1ICjup0Q+jk/AydPkOgsx7I/MjUymFEkU
-    vgXBtCKtzh3NKXtFFuW51tJ60GPOabLKuG0Qm5li+UXALrWhzWuvd5vv2FZI
-    dTQCbrq/MFS/M02xNtwqzWiBjE/LwqIdbrDAAvX4HGy0ydaQJ1DKYeQeph5D
-    lAGBw2nQ4izXhhuLaU3w8VQkIJHdhxIKI5gJY/20AGkG0vHD553Mh5kBINrWp
-    CRYmmJS8DCYbAiQtKbkeUfzHViGTZuj6PwaY8Mv39PGO47a++pt45IUyCEs4/
-    LjMS72cyfo8tU4twRGp76SFGYejYj3wGC1f/POQw==
-  Signature: |
-    BOPR0jL0BOV5Zx502BuPbOvi/hvOq5ID8Dz1MQfOjkey6FKP/6cb4f9YXpm6c
-    ZCHAZLo0GduKdMepiKPUq1rsbbAxkRdQdjOOusEWoxNA58x3E4373tCAhlqM2
-    DvuQERrIIQ/XnYLV9C3uw4efZwhFqog1jvVyoEHpuvs8xnYtGbsKQ8FrgLwXv
-    pOZYy9cSgq+jqLy2D9IxiowPcbq2cRlbW9d2xlUfpq0AohyuXQhpxn7d9RUor
-    9veoARRAdxRJK12EpcSoEM1LhTRYdJnSRCY3x3p6YIV3c+l1sWvaQwKt0sZ/U
-    8TTDx2gb9g7r/+U9icneu/zlqUpSkexCS009Q==
-  Descriptor: |
-    AP///wAABAACAAAAAAAFGJ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIAAAAAAAABBUFQ6VQAAACRo
-    aW9GSU8AJGhvc3RpbzAkaG9zdGlvMWFjOnUAAAAAYm9zczpVAABjYW06dQAA
-    AGNlY2Q6dQAAY2ZnOnUAAABkbHA6RktDTGRscDpTUlZSZHNwOjpEU1BmcmQ6
-    dQAAAGZzOlVTRVIAZ3NwOjpHcHVoaWQ6VVNFUmh0dHA6QwAAbWljOnUAAABu
-    ZG06dQAAAG5ld3M6dQAAbndtOjpVRFNwdG06dQAAAHB4aTpkZXYAc29jOlUA
-    AABzc2w6QwAAAHkycjp1AAAAbGRyOnJvAABpcjpVU0VSAAAAAAAAAAAAAAAA
-    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    AAAAAAAAAABOn/rw/7//8ec/APIA8JH/APaR/1D/gf9Y/4H/cP+B/3j/gf8B
-    AQD/AAIA/iECAPz/////////////////////////////////////////////
-    ////////////////////////////////////////AAAAAAAAAAAAAAAAAAAA
-    AAADAAAAAAAAAAAAAAAAAAI=

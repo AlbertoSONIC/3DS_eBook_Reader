@@ -1,8 +1,6 @@
 @echo off
-for %%* in (.) do set ProjectName=%%~n*
-echo %ProjectName%
 make
-arm-none-eabi-strip %ProjectName%.elf
-resources\makerom.exe -f cci -rsf resources\gw_workaround.rsf -target d -exefslogo -elf %ProjectName%.elf -icon resources\icon.bin -banner resources\banner.bin -o %ProjectName%.3ds
-resources\makerom.exe -f cia -o %ProjectName%.cia -elf %ProjectName%.elf -rsf resources\build_cia.rsf -icon resources\icon.bin -banner resources\banner.bin -exefslogo -target t
+3dstool -cvtf romfs romfs.bin --romfs-dir romfs
+makerom -f cci -o 3DS_eBook_Reader.3ds -rsf gw_workaround.rsf -target d -exefslogo -elf 3DS_eBook_Reader.elf -icon icon.bin -banner banner.bin -romfs romfs.bin
+makerom -f cia -o 3DS_eBook_Reader.cia -elf 3DS_eBook_Reader.elf -rsf cia_workaround.rsf -icon icon.bin -banner banner.bin -exefslogo -target t -romfs romfs.bin
 pause

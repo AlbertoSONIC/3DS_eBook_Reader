@@ -120,9 +120,9 @@ void GUI_MenuView()
 
 void GUI_StatusBar(char* title)
 {
-	ACU_GetWifiStatus(NULL, &wifiStatus);
-	PTMU_GetBatteryLevel(NULL, &batteryLevel);
-	PTMU_GetBatteryChargeState(NULL, &charging);
+	ACU_GetWifiStatus(&wifiStatus);
+	PTMU_GetBatteryLevel(&batteryLevel);
+	PTMU_GetBatteryChargeState(&charging);
 
 	//Wifi icon
 	if (wifiStatus) gfxDrawSprite(GFX_TOP, GFX_LEFT, (u8*)Wifi_bin, 20, 40, 0, 220);

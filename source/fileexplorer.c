@@ -91,7 +91,7 @@ void FileExplorer_Main() {
 
 	//------------------------------------ INPUT ----------------------------------------
 	//Both touch and buttons input supported
-	if ((posX > 0 && posX < 158) && (posY > 240 - 24 && posY < 240)) mode = 2; //Close
+	if ((posX > 0 && posX < 158) && (posY > 240 - 24 && posY < 240)) mode = 3; //Close
 	//Buttons item selection
 	if (input & KEY_UP) FileExplorer_PrevSelection();
 	else if (input & KEY_DOWN) FileExplorer_NextSelection();
